@@ -1,8 +1,10 @@
-#' Graphs NBA award winners over time
+#' Graphs a stat of an NBA award's winners over time
 #'
-#' @param award Type of award (MVP, DPOY, ROY, SMOY, MIP)
-#' @param stat What stat do you want to look at (PTS, TRB, AST, STL, BLK, FG%, 3P%, FT%, WS, MP)
-#'
+#' @param award Type of award (MVP, DPOY, ROY, SMOY, MIP) (quoted)
+#' @param stat What stat do you want to look at -- PTS, TRB, AST, STL, BLK, FG%, 3P%, FT%, WS, MP (quoted)
+#' @param start The year to start at
+#' @param end The year to end at
+#' @param anim If you wish to output an animated line plot, make anim = T
 #' @import tidyverse
 #' @import rvest
 #' @import ggplot2
@@ -12,25 +14,9 @@
 #' @export
 
 
-award_winners <- function(award,stat,start = NULL, end = NULL){
+one_award <- function(award,stat,start = NULL, end = NULL, anim = F){
   # specify which data set to work with
-if(award == "MVP"){
-  dat <- read_mvps(mvp)
-}
-else if(award == "DPOY"){
-  dat <- read_dpoy(dpoy)
-}
-else if(award == "SMOY"){
-    dat <- read_smoy(smoy)
-}
-else if(award == "ROY"){
-  dat <- read_roys(roy)
-}
-else if(award == "MIP"){
-  dat <- read_mip(mip)
-}
-
-
+  dat <- read_award(award)
   # filter data if there is start and end year
   s <- 1
   e <- nrow(dat)
@@ -41,9 +27,8 @@ else if(award == "MIP"){
     e <- 2022 - end
   }
  dat2 <- dat[e:s,]
-
  # create animated plot for the function to return
-  anim <- dat2 %>%
+  if(anim == T){animation <- dat2 %>%
     ggplot(aes_string(x="Season", y = stat)) +
     geom_line(colour = "red") +
     geom_point() +
@@ -51,18 +36,30 @@ else if(award == "MIP"){
     xlab("Season") +
     ylab("{stat}") +
     ggtitle("{stat} for {award} Winner each Season") +
-    theme_bw()
+    theme_bw()}
+ else{
+   animation <- dat2 %>%
+     ggplot(aes_string(x="Season", y = stat)) +
+     geom_line(colour = "red") +
+     geom_point() +
+     xlab("Season") +
+     ylab(stat) +
+     ggtitle(paste(stat, "for", award, "Winner each Season")) +
+     theme_bw()
+ }
 
-  return(anim)
+
+  return(animation)
 }
 
 
 
 
-#' Compares multiple awards at a time
+#' Compares multiple stats at a time for an award over time
 #'
-#' @param awards A vector of awards you wish to compare
-#' @param stat The stat you want to focus on
+#' @param award The award you want to see
+#' @param stats The stats you want to compare in a vector
+#' @param anim If you want an animated plot, set anim = T
 #' @import ggplot2
 #' @import gganimate
 #' @import reshape2
@@ -74,21 +71,36 @@ else if(award == "MIP"){
 #' @export
 
 
-comp_awards <- function(awards, stat){
-  # specify which data set to work with
-  if(award == "MVP"){
-    dat <- read_mvps(mvp)
+comp_stats <- function(award, stats, anim = F){
+# pull data
+  dat <- read_award(award)
+
+# create new data frame to work with with the certain stats
+  df <- data.frame(Season = dat$Season)
+
+  for(i in 1:length(stats)){
+    df <- df %>% cbind(dat[,stats[i]])
   }
-  else if(award == "DPOY"){
-    dat <- read_dpoy(dpoy)
+
+  colnames(df) <- c("Season", stats)
+  df <- melt(df, id.vars = 'Season', variable.name = 'Stats')
+
+  # create plot with new data frame
+  if(anim == T){
+    p <- ggplot(df, aes(Season, value)) +
+      geom_line(aes(colour = Stats)) +
+      geom_point(aes(color = Stats)) +
+      transition_reveal(Season) +
+      ylab("Value") +
+      ggtitle(paste("Comparing Stats for", award, "Winners Over Time")) +
+      theme_bw()
   }
-  else if(award == "SMOY"){
-    dat <- read_smoy(smoy)
-  }
-  else if(award == "ROY"){
-    dat <- read_roys(roy)
-  }
-  else if(award == "MIP"){
-    dat <- read_mip(mip)
-  }
+  else{p <- ggplot(df, aes(Season, value)) +
+    geom_line(aes(colour = Stats)) +
+    geom_point(aes(color = Stats)) +
+    ylab("Value") +
+    ggtitle(paste("Comparing Stats for", award, "Winners Over Time")) +
+    theme_bw()
+}
+  return(p)
 }
