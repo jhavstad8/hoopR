@@ -1,21 +1,18 @@
-#' Graphs a stat of an NBA award's winners over time
+#' Find how many times a player has won an award
 #'
 #' @param award Type of award (MVP, DPOY, ROY, SMOY, MIP) (quoted)
-#' @param stat What stat do you want to look at -- PTS, TRB, AST, STL, BLK, FG%, 3P%, FT%, WS, MP (quoted)
-#' @param start The year to start at
-#' @param end The year to end at
-#' @param anim If you wish to output an animated line plot, make anim = T
+#' @param max Set max = T to only output the player(s) with the most of the speicific award
+#' @param start The season to start at
+#' @param end The season to end at
 #' @import tidyverse
 #' @import rvest
 #' @import ggplot2
-#' @import gganimate
 #' @import rlang
-#' @return An animated plot
+#' @return A data frame with award outcomes
 #' @export
 
-
-one_award <- function(award,stat,start = NULL, end = NULL, anim = F){
-  # specify which data set to work with
+player_freq <- function(award, max = F, start = NULL, end = NULL){
+  # read in data based on award
   dat <- read_award(award)
   # filter data if there is start and end year
   s <- 1
@@ -26,81 +23,29 @@ one_award <- function(award,stat,start = NULL, end = NULL, anim = F){
   if(!is.null(end)){
     e <- 2022 - end
   }
- dat2 <- dat[e:s,]
- # create animated plot for the function to return
-  if(anim == T){animation <- dat2 %>%
-    ggplot(aes_string(x="Season", y = stat)) +
-    geom_line(colour = "red") +
-    geom_point() +
-    transition_reveal(Season) +
-    xlab("Season") +
-    ylab("{stat}") +
-    ggtitle("{stat} for {award} Winner each Season") +
-    theme_bw()}
- else{
-   animation <- dat2 %>%
-     ggplot(aes_string(x="Season", y = stat)) +
-     geom_line(colour = "red") +
-     geom_point() +
-     xlab("Season") +
-     ylab(stat) +
-     ggtitle(paste(stat, "for", award, "Winner each Season")) +
-     theme_bw()
- }
+  dat <- dat[e:s,]
 
+  tb <- table(dat$Player)
+  df <- as.data.frame(tb)
+  df <- df[order(df$Freq, decreasing = T),]
+  names(df) <- c("Player", "Times Won")
 
-  return(animation)
+  if(max == T){
+    val <- max(df$`Times Won`)
+    df <- df[df$`Times Won` == val,]
+  }
+  return(df)
 }
 
 
 
-
-#' Compares multiple stats at a time for an award over time
+#' Find out which award winner averaged the most of a statistic
 #'
-#' @param award The award you want to see
-#' @param stats The stats you want to compare in a vector
-#' @param anim If you want an animated plot, set anim = T
-#' @import ggplot2
-#' @import gganimate
-#' @import reshape2
+#' @param award The award you want to look at
+#' @param stat The stat you want to look at
+#' @param start The season to start at
+#' @param end The season to end at
 #' @import tidyverse
-#' @import rvest
 #'
-#' @return an animated plot
-#'
+#' @return a data frame with the stat breakdown
 #' @export
-
-
-comp_stats <- function(award, stats, anim = F){
-# pull data
-  dat <- read_award(award)
-
-# create new data frame to work with with the certain stats
-  df <- data.frame(Season = dat$Season)
-
-  for(i in 1:length(stats)){
-    df <- df %>% cbind(dat[,stats[i]])
-  }
-
-  colnames(df) <- c("Season", stats)
-  df <- melt(df, id.vars = 'Season', variable.name = 'Stats')
-
-  # create plot with new data frame
-  if(anim == T){
-    p <- ggplot(df, aes(Season, value)) +
-      geom_line(aes(colour = Stats)) +
-      geom_point(aes(color = Stats)) +
-      transition_reveal(Season) +
-      ylab("Value") +
-      ggtitle(paste("Comparing Stats for", award, "Winners Over Time")) +
-      theme_bw()
-  }
-  else{p <- ggplot(df, aes(Season, value)) +
-    geom_line(aes(colour = Stats)) +
-    geom_point(aes(color = Stats)) +
-    ylab("Value") +
-    ggtitle(paste("Comparing Stats for", award, "Winners Over Time")) +
-    theme_bw()
-}
-  return(p)
-}
