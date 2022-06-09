@@ -6,7 +6,6 @@
 #' @param end The season to end at
 #' @param anim If you wish to output an animated line plot, make anim = T
 #' @import tidyverse
-#' @import rvest
 #' @import ggplot2
 #' @import gganimate
 #' @import rlang
@@ -66,14 +65,14 @@ one_award <- function(award,stat,start = NULL, end = NULL, anim = F){
 #' @import gganimate
 #' @import reshape2
 #' @import tidyverse
-#' @import rvest
 #'
 #' @return an animated plot
 #'
 #' @export
 
 
-comp_stats <- function(award, stats, start, end, anim = F){
+comp_stats <- function(award, stats, start = NULL, end = NULL, anim = F){
+
 # pull data
   dat <- read_award(award)
   s <- 1
@@ -85,6 +84,7 @@ comp_stats <- function(award, stats, start, end, anim = F){
     e <- 2022 - end
   }
   dat <- dat[e:s,]
+
 # create new data frame to work with with the certain stats
   df <- data.frame(Season = dat$Season)
 

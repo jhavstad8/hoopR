@@ -4,12 +4,16 @@
 \alias{player_stats}
 \title{Find out which award winner averaged the most of a statistic}
 \usage{
-player_stats(award, stat, start = NULL, end = NULL)
+player_stats(award, stat, top = NULL, bot = NULL, start = NULL, end = NULL)
 }
 \arguments{
 \item{award}{The award you want to look at (quoted)}
 
 \item{stat}{The stat you want to look at (quoted)}
+
+\item{top}{Enter a number (x) to show the top x players in terms of the stat}
+
+\item{bot}{Enter a number (y) to show the bottom y players in terms of the stat}
 
 \item{start}{The season to start at}
 

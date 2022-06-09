@@ -5,7 +5,6 @@
 #' @param start The season to start at
 #' @param end The season to end at
 #' @import tidyverse
-#' @import rvest
 #' @import ggplot2
 #' @import rlang
 #' @return A data frame with award outcomes
@@ -72,7 +71,7 @@ player_stats <- function(award, stat, top = NULL, bot = NULL, start = NULL, end 
   c2 <- dat$Player
   c3 <- dat[stat]
   df <- cbind(c1,c2,c3) %>% data.frame()
-  names(df) <- c("Player", stat)
+  names(df) <- c("Season", "Player", stat)
   df <- df[order(-df[,3]),]
 
   # max and min options
