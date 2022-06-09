@@ -5,7 +5,6 @@
 #' @param start The season to start at
 #' @param end The season to end at
 #' @import tidyverse
-#' @import ggplot2
 #' @import rlang
 #' @return A data frame with award outcomes
 #' @export

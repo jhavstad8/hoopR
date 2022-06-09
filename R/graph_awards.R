@@ -13,7 +13,7 @@
 #' @export
 
 
-one_award <- function(award,stat,start = NULL, end = NULL, anim = F){
+award_stat <- function(award,stat,start = NULL, end = NULL, anim = F){
   # specify which data set to work with
   dat <- read_award(award)
   # filter data if there is start and end year
@@ -71,7 +71,7 @@ one_award <- function(award,stat,start = NULL, end = NULL, anim = F){
 #' @export
 
 
-comp_stats <- function(award, stats, start = NULL, end = NULL, anim = F){
+award_stats <- function(award, stats, start = NULL, end = NULL, anim = F){
 
 # pull data
   dat <- read_award(award)
