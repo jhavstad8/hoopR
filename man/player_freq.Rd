@@ -2,20 +2,22 @@
 % Please edit documentation in R/award_winners.R
 \name{player_freq}
 \alias{player_freq}
-\title{Shows distribution of awards for players}
+\title{Find how many times a player has won an award}
 \usage{
-player_freq(award, start, end)
+player_freq(award, max = F, start = NULL, end = NULL)
 }
 \arguments{
 \item{award}{Type of award (MVP, DPOY, ROY, SMOY, MIP) (quoted)}
+
+\item{max}{Set max = T to only output the player(s) with the most of the speicific award}
 
 \item{start}{The season to start at}
 
 \item{end}{The season to end at}
 }
 \value{
-A table with award outcomes
+A data frame with award outcomes
 }
 \description{
-Shows distribution of awards for players
+Find how many times a player has won an award
 }

@@ -3,6 +3,7 @@
 export(comp_stats)
 export(one_award)
 export(player_freq)
+export(player_stats)
 export(read_award)
 export(read_dpoy)
 export(read_mip)
