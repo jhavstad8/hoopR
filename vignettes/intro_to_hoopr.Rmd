@@ -17,3 +17,14 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(hoopR)
 ```
+
+# hoopR
+
+This vignette will help demonstrate the functions in the hoopR package. This will help introduce and demonstrate various ways to use the functions and how to interpret the results.
+
+## Overview
+
+The hoopR package deals with NBA data from basketball-reference.com. This is live data which is updated at the end of each season. The data revolves around the major awards which are given out at the end of each NBA season -- MVP (Most Valuable Player), DPOY (Defensive Player of the Year), ROY (Rookie of the Year), SMOY (Sixth Man of the Year),  and MIP (Most Improved Player). The purpose of this package is to demonstrate how the awards have changed over the years in terms of various statistics (Points, Rebounds, Assists, etc.), and this package can also show more specific things such as which player has won the most MVPs, or which DPOY has averaged the most blocks, or even which team has had the most ROYs. Some fun ways to use this package include quizzing your friends on their NBA knowledge or to support your claims in debates about certain players.
+
+## Demonstrating Functions
+
