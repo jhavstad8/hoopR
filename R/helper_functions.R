@@ -60,7 +60,43 @@ read_award <- function(award){
   dat[,5] <- as.numeric(dat[,5])
   dat[,7:18] <- lapply(dat[,7:18],as.numeric)
   dat[is.na(dat)] <- 0
+  dat[,1] <- dat[,1] + 1
   return(dat)
 }
 
+
+#' Edits data based on season restrictions
+#' @param dat the data frame to modify
+#' @param start season to start at (use end of season year)
+#' @param end season to end at (use end of season year)
+#'
+#' @return data frame with season restrictions
+#' @export
+
+edit_dat <- function(dat,start=NULL,end=NULL){
+
+  year <- dat[1,1] + 1
+
+  if(!is.null(start)){
+    s <- year - start
+      if(!is.null(end)){
+        e <- year - end
+        dat <- dat[e:s,]
+      }
+      else{
+        e <- 1
+        dat <- dat[e:s,]
+      }
+  }
+  else if(!is.null(end)){
+    e <- year - end
+    dat <- dat[e:nrow(dat),]
+  }
+  else{
+    dat <- dat
+  }
+
+  return(dat)
+
+}
 

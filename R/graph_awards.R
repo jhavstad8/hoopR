@@ -16,18 +16,12 @@
 award_stat <- function(award,stat,start = NULL, end = NULL, anim = F){
   # specify which data set to work with
   dat <- read_award(award)
-  # filter data if there is start and end year
-  s <- 1
-  e <- nrow(dat)
-  if(!is.null(start)){
-    s <- 2022 - start
-  }
-  if(!is.null(end)){
-    e <- 2022 - end
-  }
- dat2 <- dat[e:s,]
+
+  # edit data for start and end
+  dat <- edit_dat(dat,start,end)
+
  # create animated plot for the function to return
-  if(anim == T){animation <- dat2 %>%
+  if(anim == T){animation <- dat %>%
     ggplot(aes_string(x="Season", y = stat)) +
     geom_line(colour = "red") +
     geom_point() +
@@ -37,7 +31,7 @@ award_stat <- function(award,stat,start = NULL, end = NULL, anim = F){
     ggtitle("{stat} for {award} Winner each Season") +
     theme_bw()}
  else{
-   animation <- dat2 %>%
+   animation <- dat %>%
      ggplot(aes_string(x="Season", y = stat)) +
      geom_line(colour = "red") +
      geom_point() +
@@ -75,15 +69,9 @@ award_stats <- function(award, stats, start = NULL, end = NULL, anim = F){
 
 # pull data
   dat <- read_award(award)
-  s <- 1
-  e <- nrow(dat)
-  if(!is.null(start)){
-    s <- 2022 - start
-  }
-  if(!is.null(end)){
-    e <- 2022 - end
-  }
-  dat <- dat[e:s,]
+
+# edit data for start and end
+  dat <- edit_dat(dat,start,end)
 
 # create new data frame to work with with the certain stats
   df <- data.frame(Season = dat$Season)

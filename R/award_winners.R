@@ -12,16 +12,9 @@
 player_freq <- function(award, max = F, start = NULL, end = NULL){
   # read in data based on award
   dat <- read_award(award)
-  # filter data if there is start and end year
-  s <- 1
-  e <- nrow(dat)
-  if(!is.null(start)){
-    s <- 2022 - start
-  }
-  if(!is.null(end)){
-    e <- 2022 - end
-  }
-  dat <- dat[e:s,]
+
+  # edit data for start and end
+  dat <- edit_dat(dat,start,end)
 
   tb <- table(dat$Player)
   df <- as.data.frame(tb)
@@ -54,16 +47,9 @@ player_freq <- function(award, max = F, start = NULL, end = NULL){
 player_stats <- function(award, stat, top = NULL, bot = NULL, start = NULL, end = NULL){
   # read in award
   dat <- read_award(award)
-  # manipulate data for certain seasons
-  s <- 1
-  e <- nrow(dat)
-  if(!is.null(start)){
-    s <- 2022 - start
-  }
-  if(!is.null(end)){
-    e <- 2022 - end
-  }
-  dat <- dat[e:s,]
+
+  # edit data for start and end
+  dat <- edit_dat(dat,start,end)
 
   # create new data frame with the players and the stat
   c1 <- dat$Season

@@ -15,16 +15,8 @@ add_stats <- function(award, stats, top = NULL, bot = NULL, start = NULL, end = 
   # pull data
   dat <- read_award(award)
 
-  # change data if start and end parameters
-  s <- 1
-  e <- nrow(dat)
-  if(!is.null(start)){
-    s <- 2022 - start
-  }
-  if(!is.null(end)){
-    e <- 2022 - end
-  }
-  dat <- dat[e:s,]
+  # edit data for start and end
+  dat <- edit_dat(dat,start,end)
 
   # create data frame
   df <- data.frame(Season = dat$Season, Player = dat$Player)
