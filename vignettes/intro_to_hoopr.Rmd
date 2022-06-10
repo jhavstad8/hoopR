@@ -26,5 +26,46 @@ This vignette will help demonstrate the functions in the hoopR package. This wil
 
 The hoopR package deals with NBA data from basketball-reference.com. This is live data which is updated at the end of each season. The data revolves around the major awards which are given out at the end of each NBA season -- MVP (Most Valuable Player), DPOY (Defensive Player of the Year), ROY (Rookie of the Year), SMOY (Sixth Man of the Year),  and MIP (Most Improved Player). The purpose of this package is to demonstrate how the awards have changed over the years in terms of various statistics (Points, Rebounds, Assists, etc.), and this package can also show more specific things such as which player has won the most MVPs, or which DPOY has averaged the most blocks, or even which team has had the most ROYs. Some fun ways to use this package include quizzing your friends on their NBA knowledge or to support your claims in debates about certain players.
 
+Important Features:
+* awards - "MVP", "DPOY", "ROY", "MIP", "SMOY"
+* stats - "PTS", "TRB", "AST", "STL", "BLK", "Age", "G", "MP", "FG%", "3P%", "FT%", "WS", "WS/48"
+
 ## Demonstrating Functions
+
+### award_stat()
+**award_stat()** will graph how an award has changed over time
+Function Parameters include:
+* award
+* stat
+* start
+* end
+* anim
+
+```{r}
+award_stat("MVP", "PTS", anim = F)
+```
+
+As you will see, the functions in hoopR require the specification of the award type in quotes. 
+
+It appears that there are a lot of high point values before 1980. If we wanted to restrict the seasons to 1980 and after, we could run the code again, this time with **start = 1980**.
+
+```{r}
+award_stat("MVP", "PTS", start = 1980, anim = F)
+```
+
+We could also restrict the end season with (end = ) or we could choose to animate the graph with (anim = T).
+
+### award_stats()
+The **award_stats()** function closely resembles the previous function. However, in this function, we can specify multiple stats at a time. 
+
+```{r}
+award_stats("DPOY", c("BLK", "STL"), start = 2000, end = 2010)
+```
+
+Note how we specify our **stats** parameter in this function -- use c() and quote the stats we wish to compare. The graph above shows that from 2000 to 2010, the Defensive Player of the Year tends to average more blocks than steals, perhaps showing blocks as a high indicator of who will win the award.
+
+### award()
+The **award()** function 
+
+
 
