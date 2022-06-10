@@ -1,7 +1,7 @@
 #' Find how many times a player has won an award
 #'
 #' @param award Type of award (MVP, DPOY, ROY, SMOY, MIP) (quoted)
-#' @param max Set max = T to only output the player(s) with the most of the speicific award
+#' @param max Set max = T to only output the player(s) with the most of the specific award
 #' @param start The season to start at
 #' @param end The season to end at
 #' @import tidyverse
@@ -9,7 +9,7 @@
 #' @return A data frame with award outcomes
 #' @export
 
-player_freq <- function(award, max = F, start = NULL, end = NULL){
+award <- function(award, max = F, start = NULL, end = NULL){
   # read in data based on award
   dat <- read_award(award)
 
@@ -68,4 +68,49 @@ player_stats <- function(award, stat, top = NULL, bot = NULL, start = NULL, end 
   }
 
   return(df)
+}
+
+
+
+#' Find out which player has won the most of multiple awards combined
+#'
+#' @param awards A vector of awards (quoted)
+#' @param top  Enter a number (x) to show the top x players in terms of awards won
+#' @param start Season to start at
+#' @param end Season to end at
+#' @import tidyverse
+#' @return A data frame with players and times they won
+
+
+awards <- function(awards, top, start, end){
+  # create first data frame
+    dat <- read_award(awards[1])
+    dat <- edit_dat(dat,start,end)
+    tb <- table(dat$Player)
+    df1 <- as.data.frame(tb)
+    names(df1) <- c("Player", "Times Won")
+
+  # loop through and merge data frames
+    for(i in 2:length(awards)){
+      dat <- read_award(awards[i])
+      dat <- edit_dat(dat,start,end)
+      tb <- table(dat$Player)
+      df <- as.data.frame(tb)
+      names(df) <- c("Player", "Times Won")
+
+      df1 <- merge(df1, df, by = 'Player', all = T)
+    }
+
+  # add up columns
+    df1[,2] <- apply(df1[,2:ncol(df1)],1,sum)
+    df1 <- df1[,1:2]
+    df1 <- df1[order(-df1[,2]),]
+    names(df1) <- c("Player", "Awards Won")
+
+    if(!is.null(top)){
+      df1 <- df1[1:top,]
+    }
+
+    return(df1)
+
 }
