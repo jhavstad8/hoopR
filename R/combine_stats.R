@@ -34,7 +34,7 @@ add_stats <- function(award, stats, top = NULL, bot = NULL, start = NULL, end = 
   # order df
   df <- df[order(-df[,3]),]
 
-  # max and min options
+  # top and bot options
   if(!is.null(top)){
     df <- df[1:top,]
   }

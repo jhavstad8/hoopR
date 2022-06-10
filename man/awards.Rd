@@ -4,7 +4,7 @@
 \alias{awards}
 \title{Find out which player has won the most of multiple awards combined}
 \usage{
-awards(awards, top, start, end)
+awards(awards, top = NULL, start = NULL, end = NULL)
 }
 \arguments{
 \item{awards}{A vector of awards (quoted)}

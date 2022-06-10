@@ -59,7 +59,7 @@ player_stats <- function(award, stat, top = NULL, bot = NULL, start = NULL, end 
   names(df) <- c("Season", "Player", stat)
   df <- df[order(-df[,3]),]
 
-  # max and min options
+  # top and bot options
   if(!is.null(top)){
     df <- df[1:top,]
   }
@@ -80,9 +80,10 @@ player_stats <- function(award, stat, top = NULL, bot = NULL, start = NULL, end 
 #' @param end Season to end at
 #' @import tidyverse
 #' @return A data frame with players and times they won
+#' @export
 
 
-awards <- function(awards, top, start, end){
+awards <- function(awards, top = NULL, start = NULL, end = NULL){
   # create first data frame
     dat <- read_award(awards[1])
     dat <- edit_dat(dat,start,end)
@@ -99,6 +100,7 @@ awards <- function(awards, top, start, end){
       names(df) <- c("Player", "Times Won")
 
       df1 <- merge(df1, df, by = 'Player', all = T)
+      df1[is.na(df1)] <- 0
     }
 
   # add up columns
