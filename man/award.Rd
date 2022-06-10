@@ -4,12 +4,12 @@
 \alias{award}
 \title{Find how many times a player has won an award}
 \usage{
-award(award, max = F, start = NULL, end = NULL)
+award(award, top = NULL, start = NULL, end = NULL)
 }
 \arguments{
 \item{award}{Type of award (MVP, DPOY, ROY, SMOY, MIP) (quoted)}
 
-\item{max}{Set max = T to only output the player(s) with the most of the specific award}
+\item{top}{Enter a number (x) to show the top x players in terms of the stat}
 
 \item{start}{The season to start at}
 

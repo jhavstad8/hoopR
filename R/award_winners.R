@@ -1,7 +1,7 @@
 #' Find how many times a player has won an award
 #'
 #' @param award Type of award (MVP, DPOY, ROY, SMOY, MIP) (quoted)
-#' @param max Set max = T to only output the player(s) with the most of the specific award
+#' @param top Enter a number (x) to show the top x players in terms of the stat
 #' @param start The season to start at
 #' @param end The season to end at
 #' @import tidyverse
@@ -9,7 +9,7 @@
 #' @return A data frame with award outcomes
 #' @export
 
-award <- function(award, max = F, start = NULL, end = NULL){
+award <- function(award, top = NULL, start = NULL, end = NULL){
   # read in data based on award
   dat <- read_award(award)
 
@@ -21,10 +21,10 @@ award <- function(award, max = F, start = NULL, end = NULL){
   df <- df[order(df$Freq, decreasing = T),]
   names(df) <- c("Player", "Times Won")
 
-  if(max == T){
-    val <- max(df$`Times Won`)
-    df <- df[df$`Times Won` == val,]
+  if(!is.null(top)){
+    df <- df[1:top,]
   }
+
   return(df)
 }
 
