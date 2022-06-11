@@ -25,3 +25,6 @@ a data frame with the number of awards for each team
 \description{
 Compares teams in terms of number of awards won
 }
+\examples{
+teams("SMOY", top = 5, end=2000)
+}

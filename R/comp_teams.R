@@ -9,6 +9,7 @@
 #' @import tidyverse
 #' @import ggplot2
 #' @return a data frame with the number of awards for each team
+#' @examples teams("SMOY", top = 5, end=2000)
 #' @export
 
 teams <- function(award, top = NULL, bot = NULL, start = NULL, end = NULL, plot = F){

@@ -23,3 +23,6 @@ an animated plot
 \description{
 Compares multiple stats at a time for an award over time
 }
+\examples{
+award_stats("DPOY", c("PTS", "AST"))
+}

@@ -25,3 +25,6 @@ a data frame with the stat breakdown
 \description{
 Find out which award winner averaged the most of a statistic
 }
+\examples{
+player_stats("ROY", "FG\%", top = 10)
+}

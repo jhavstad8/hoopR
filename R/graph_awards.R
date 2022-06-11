@@ -10,6 +10,7 @@
 #' @import gganimate
 #' @import rlang
 #' @return An animated plot
+#' @examples award_stat("MVP", "PTS", start = 2000)
 #' @export
 
 
@@ -61,7 +62,7 @@ award_stat <- function(award,stat,start = NULL, end = NULL, anim = F){
 #' @import tidyverse
 #'
 #' @return an animated plot
-#'
+#' @examples award_stats("DPOY", c("PTS", "AST"))
 #' @export
 
 

@@ -25,3 +25,6 @@ A data frame with rankings of players
 \description{
 Combine stats and compare players
 }
+\examples{
+add_stats("MIP", c("PTS", "TRB", "AST"), start = 1990)
+}

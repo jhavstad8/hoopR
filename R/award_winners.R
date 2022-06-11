@@ -7,6 +7,7 @@
 #' @import tidyverse
 #' @import rlang
 #' @return A data frame with award outcomes
+#' @examples award("MVP", top = 3)
 #' @export
 
 award <- function(award, top = NULL, start = NULL, end = NULL){
@@ -41,6 +42,7 @@ award <- function(award, top = NULL, start = NULL, end = NULL){
 #' @import tidyverse
 #'
 #' @return a data frame with the stat breakdown
+#' @examples player_stats("ROY", "FG%", top = 10)
 #' @export
 
 
@@ -80,6 +82,7 @@ player_stats <- function(award, stat, top = NULL, bot = NULL, start = NULL, end 
 #' @param end Season to end at
 #' @import tidyverse
 #' @return A data frame with players and times they won
+#' @examples awards(c("MVP", "ROY"))
 #' @export
 
 

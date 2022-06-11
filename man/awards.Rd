@@ -21,3 +21,6 @@ A data frame with players and times they won
 \description{
 Find out which player has won the most of multiple awards combined
 }
+\examples{
+awards(c("MVP", "ROY"))
+}

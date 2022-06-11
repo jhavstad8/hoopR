@@ -8,6 +8,7 @@
 #' @param end Season to end at
 #' @import tidyverse
 #' @return A data frame with rankings of players
+#' @examples add_stats("MIP", c("PTS", "TRB", "AST"), start = 1990)
 #' @export
 
 

@@ -23,3 +23,6 @@ An animated plot
 \description{
 Graphs a stat of an NBA award's winners over time
 }
+\examples{
+award_stat("MVP", "PTS", start = 2000)
+}

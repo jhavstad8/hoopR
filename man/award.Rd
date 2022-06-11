@@ -21,3 +21,6 @@ A data frame with award outcomes
 \description{
 Find how many times a player has won an award
 }
+\examples{
+award("MVP", top = 3)
+}
