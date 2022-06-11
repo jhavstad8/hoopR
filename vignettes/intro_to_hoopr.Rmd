@@ -65,7 +65,65 @@ award_stats("DPOY", c("BLK", "STL"), start = 2000, end = 2010)
 Note how we specify our **stats** parameter in this function -- use c() and quote the stats we wish to compare. The graph above shows that from 2000 to 2010, the Defensive Player of the Year tends to average more blocks than steals, perhaps showing blocks as a high indicator of who will win the award.
 
 ### award()
-The **award()** function 
+The **award()** function determines which players have won the most of a certain award.
+
+```{r}
+award("MVP")
+```
+
+Perhaps we only want to find the 5 players who have won the most MVPs. We could do something like this below.
+
+```{r, results = 'hide'}
+award("MVP", top = 5)
+```
+
+### player_stats()
+The **player_stats()** function shows which award winner had the most of a certain stat.
+
+In the previous part, we saw that Kareem Abdul-Jabbar has won the most MVPs in NBA history, but which MVP has been the most impressive in terms of scoring output?
+
+```{r}
+player_stats("MVP", "PTS", top = 5)
+```
+
+From the output above, we can see that Wilt Chamberlain's 1960 season was the most impressive in terms of scoring at 37.6 points per game.
+
+### awards()
+The **awards()** function is a variation of the award() function. We can determine which players have won the most of multiple awards combined. 
+
+For example, let's find out if Kareem still has the most awards when we combine both the MVP and DPOY award.
+
+```{r}
+awards(c("MVP", "DPOY"))
+```
 
 
+Now, Kareem and Michael Jordan are tied for 6 MVP + DPOY awards.
+Note that specifying multiple awards is similar to specifying multiple stats as shown previously.
+
+### add_stats()
+The **add_stats()** function is another function in which we can combine multiple things together, similar to the awards() function. In add_stats(), we can choose multiple stats.
+We previously saw that Wilt averaged the most points in an MVP season, but is he a well-rounded player? To determine this, let's combine points, rebounds, and assists for MVPs.
+
+```{r}
+add_stats("MVP", c("PTS", "TRB", "AST"), top = 5)
+```
+
+Even after combining stats, Wilt's 1960 MVP season is still the most impressive when it comes to stats, as he averaged almost 67 points+rebounds+assists per game!
+
+### teams()
+The **teams()** function compares teams. We have seen how this package can compare an award from season-to-season or from player-to-player. Now, teams() focuses on how awards are broken down by team.
+
+For example, what if we wanted to determine which team has won the most Rookie of the Year awards.
+
+```{r}
+teams("ROY", top = 5)
+```
+
+From the output above, we can see that Portland has had the most Rookie of the Years with 4, perhaps indicating that they have a great drafting process.
+
+We can also view this data in a graph.
+```{r}
+teams("ROY", top = 5, plot = T)
+```
 
