@@ -27,19 +27,24 @@ This vignette will help demonstrate the functions in the hoopR package. This wil
 The hoopR package deals with NBA data from basketball-reference.com. This is live data which is updated at the end of each season. The data revolves around the major awards which are given out at the end of each NBA season -- MVP (Most Valuable Player), DPOY (Defensive Player of the Year), ROY (Rookie of the Year), SMOY (Sixth Man of the Year),  and MIP (Most Improved Player). The purpose of this package is to demonstrate how the awards have changed over the years in terms of various statistics (Points, Rebounds, Assists, etc.), and this package can also show more specific things such as which player has won the most MVPs, or which DPOY has averaged the most blocks, or even which team has had the most ROYs. Some fun ways to use this package include quizzing your friends on their NBA knowledge or to support your claims in debates about certain players.
 
 Important Features:
-* awards - "MVP", "DPOY", "ROY", "MIP", "SMOY"
-* stats - "PTS", "TRB", "AST", "STL", "BLK", "Age", "G", "MP", "FG%", "3P%", "FT%", "WS", "WS/48"
+
+* awards : "MVP", "DPOY", "ROY", "MIP", "SMOY"
+* stats : "PTS", "TRB", "AST", "STL", "BLK", "Age", "G", "MP", "FG%", "3P%", "FT%", "WS", "WS/48"
 
 ## Demonstrating Functions
 
 ### award_stat()
 **award_stat()** will graph how an award has changed over time
+
 Function Parameters include:
+
 * award
 * stat
 * start
 * end
 * anim
+
+These parameters will pop up repeatedly across many of the functions in this package, with some varying slightly.
 
 ```{r}
 award_stat("MVP", "PTS", anim = F)
@@ -58,7 +63,7 @@ We could also restrict the end season with (end = ) or we could choose to animat
 ### award_stats()
 The **award_stats()** function closely resembles the previous function. However, in this function, we can specify multiple stats at a time. 
 
-```{r}
+```{r, warning = F}
 award_stats("DPOY", c("BLK", "STL"), start = 2000, end = 2010, anim = T)
 ```
 
@@ -108,6 +113,8 @@ We previously saw that Wilt averaged the most points in an MVP season, but is he
 ```{r}
 add_stats("MVP", c("PTS", "TRB", "AST"), top = 5)
 ```
+
+Note: If we wanted to view the bottom 5 players, we could set (bot = 5).
 
 Even after combining stats, Wilt's 1960 MVP season is still the most impressive when it comes to stats, as he averaged almost 67 points+rebounds+assists per game!
 
