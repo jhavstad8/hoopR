@@ -1,5 +1,5 @@
 ---
-title: "Introduction to hoopr"
+title: "Introduction to hoopR"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to hoopr}
@@ -59,7 +59,7 @@ We could also restrict the end season with (end = ) or we could choose to animat
 The **award_stats()** function closely resembles the previous function. However, in this function, we can specify multiple stats at a time. 
 
 ```{r}
-award_stats("DPOY", c("BLK", "STL"), start = 2000, end = 2010)
+award_stats("DPOY", c("BLK", "STL"), start = 2000, end = 2010, anim = T)
 ```
 
 Note how we specify our **stats** parameter in this function -- use c() and quote the stats we wish to compare. The graph above shows that from 2000 to 2010, the Defensive Player of the Year tends to average more blocks than steals, perhaps showing blocks as a high indicator of who will win the award.
@@ -125,5 +125,14 @@ From the output above, we can see that Portland has had the most Rookie of the Y
 We can also view this data in a graph.
 ```{r}
 teams("ROY", top = 5, plot = T)
+```
+
+### read_award()
+The **read_award()** function is a helper function that is called in all of the functions above. 
+If you want to view the data for yourself and work with it in a different way, you can get data for each award by running this function.
+
+```{r}
+dat <- read_award("SMOY")
+head(dat)
 ```
 
